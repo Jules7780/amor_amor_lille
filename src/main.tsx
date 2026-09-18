@@ -4,6 +4,7 @@ import '@fontsource/italiana'
 import '@fontsource/pinyon-script'
 import '@fontsource-variable/jost'
 import './index.css'
+import './immersif.css'
 import App from './App'
 
 createRoot(document.getElementById('root')!).render(

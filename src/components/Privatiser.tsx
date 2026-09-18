@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { CONTACT, RESEAUX, RESERVATION } from '../data/infos'
+import TitreNeon from './TitreNeon'
 
 /**
  * Réservation de table : module Zenchef du bar (lien externe).
@@ -81,7 +82,7 @@ export default function Privatiser() {
         <div className="privatiser__texte" data-reveal>
           <div className="reserver-table">
             <p className="surtitre">Réserver</p>
-            <h2 className="titre">Une table pour ce soir</h2>
+            <TitreNeon>Une table pour ce soir</TitreNeon>
             <p>
               Les réservations se font en ligne, du mardi au samedi. Au-delà de {RESERVATION.groupes} personnes,
               écrivez-nous sur Instagram.
@@ -103,7 +104,7 @@ export default function Privatiser() {
 
           <div className="privatiser__intro">
             <p className="surtitre">Privatiser</p>
-            <h2 className="titre titre--moyen">Votre soirée au Amor</h2>
+            <TitreNeon className="titre--moyen">Votre soirée au Amor</TitreNeon>
             <p>
               Anniversaire, afterwork, soirée d'entreprise ou événement étudiant : le bar, la piste, le DJ booth et la
               terrasse peuvent accueillir votre soirée. Décrivez votre projet, l'équipe du Social Group vous répond.

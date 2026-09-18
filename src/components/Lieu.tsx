@@ -1,4 +1,6 @@
 import Ornement from './Ornement'
+import TitreNeon from './TitreNeon'
+import Lustre from './Lustre'
 
 const DETAILS = [
   { valeur: '7', libelle: 'lustres en cristal venus des Pays-Bas' },
@@ -10,11 +12,14 @@ const DETAILS = [
 export default function Lieu() {
   return (
     <section id="le-lieu" className="section lieu">
+      <div className="decor decor--lieu" data-parallaxe="" data-vitesse="-0.22">
+        <Lustre />
+      </div>
       <div className="container">
         <div className="lieu__grille">
           <div className="lieu__texte" data-reveal>
             <p className="surtitre">Depuis juin 2023</p>
-            <h2 className="titre">Un hôtel particulier rue Royale</h2>
+            <TitreNeon>Un hôtel particulier rue Royale</TitreNeon>
             <p>
               Derrière la façade du 27 rue Royale, un ancien hôtel particulier a gardé ses moulures, ses cheminées de
               marbre et ses hauts plafonds. Edward Duquesne et Gilles Perthame, déjà à l'origine du Cartel et du Madre,
@@ -28,7 +33,7 @@ export default function Lieu() {
           </div>
 
           <div className="lieu__visuels" data-reveal>
-            <figure className="cadre cadre--arche lieu__photo-principale">
+            <figure data-inclinaison="" className="cadre cadre--arche lieu__photo-principale">
               <img
                 src="/images/salon-lustres.webp"
                 alt="Le salon du fond : lustres en cristal, murs rouges moulurés et néon AMOR AMOR au-dessus de la cheminée"
@@ -37,7 +42,7 @@ export default function Lieu() {
                 loading="lazy"
               />
             </figure>
-            <figure className="cadre lieu__photo-neon">
+            <figure data-inclinaison="" className="cadre lieu__photo-neon">
               <picture>
                 <source media="(max-width: 640px)" srcSet="/images/neon-amor-640.webp" />
                 <img
@@ -62,7 +67,7 @@ export default function Lieu() {
         </ul>
 
         <figure className="fondateurs" data-reveal>
-          <div className="cadre fondateurs__photo">
+          <div data-inclinaison="" className="cadre fondateurs__photo">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/fondateurs-miroir-800.webp" />
               <img

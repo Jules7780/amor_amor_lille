@@ -1,21 +1,29 @@
 import { CARTE, SIGNATURES } from '../data/infos'
 import Soleil from './Soleil'
+import TitreNeon from './TitreNeon'
+import Lustre from './Lustre'
 
 export default function Carte() {
   return (
     <section id="carte" className="section carte">
+      <div className="decor decor--carte" data-parallaxe="" data-vitesse="-0.3">
+        <Lustre />
+      </div>
+      <div className="decor decor--carte-loin" data-parallaxe="" data-vitesse="-0.12">
+        <Lustre />
+      </div>
       <div className="container">
         <header className="section__entete section__entete--centre" data-reveal>
           <p className="surtitre">Au bar, en terrasse</p>
-          <h2 className="titre">La carte</h2>
+          <TitreNeon>La carte</TitreNeon>
           <p className="section__intro">
             Des cocktails signatures créés par la mixologue Victoire Spanneut, des bières locales, du champagne et, depuis
             cet été, une carte de pizzas à partager.
           </p>
         </header>
 
-        <div className="signatures">
-          <figure className="cadre cadre--arche signatures__photo" data-reveal>
+        <div className="signatures" data-reveal>
+          <figure data-inclinaison="" className="cadre cadre--arche signatures__photo">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/cocktails-tapis-720.webp" />
               <img
@@ -28,10 +36,10 @@ export default function Carte() {
             </picture>
           </figure>
 
-          <div className="signatures__liste" data-reveal>
+          <div className="signatures__liste">
             <p className="surtitre">Signatures de la maison</p>
             {SIGNATURES.map((cocktail) => (
-              <article key={cocktail.nom} className="signature">
+              <article key={cocktail.nom} className="signature" data-inclinaison="souris">
                 <div className="signature__entete">
                   <Soleil className="signature__soleil" />
                   <h3 className="signature__nom">{cocktail.nom}</h3>
@@ -64,7 +72,7 @@ export default function Carte() {
         </div>
 
         <div className="carte__photos" data-reveal>
-          <figure className="cadre">
+          <figure data-inclinaison="" className="cadre">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/pizza-partage-720.webp" />
               <img
@@ -76,7 +84,7 @@ export default function Carte() {
               />
             </picture>
           </figure>
-          <figure className="cadre">
+          <figure data-inclinaison="" className="cadre">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/cocktail-agrume-720.webp" />
               <img
@@ -88,7 +96,7 @@ export default function Carte() {
               />
             </picture>
           </figure>
-          <figure className="cadre">
+          <figure data-inclinaison="" className="cadre">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/cocktail-terrasse-720.webp" />
               <img

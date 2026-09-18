@@ -1,6 +1,7 @@
 import { ADRESSE, CONTACT, HORAIRES, LIENS_CARTE } from '../data/infos'
 import { useStatut } from '../hooks/useStatut'
 import { formatHeure } from '../utils/horaires'
+import TitreNeon from './TitreNeon'
 
 export default function Infos() {
   const statut = useStatut()
@@ -10,7 +11,7 @@ export default function Infos() {
       <div className="container">
         <header className="section__entete" data-reveal>
           <p className="surtitre">Infos pratiques</p>
-          <h2 className="titre">Horaires &amp; accès</h2>
+          <TitreNeon>Horaires &amp; accès</TitreNeon>
         </header>
 
         <div className="infos__grille">

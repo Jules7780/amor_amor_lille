@@ -1,0 +1,492 @@
+/* Version immersive : effets de profondeur, néon 3D, titres qui s'allument ---- */
+
+.section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Titres néon -------------------------------------------------------------- */
+
+.titre-neon__mot {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.titre-neon__lettre {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .titre-neon .titre-neon__lettre {
+    color: rgba(243, 227, 211, 0.14);
+  }
+
+  .titre-neon.is-allume .titre-neon__lettre {
+    animation: neon-lettre 1.3s both;
+  }
+}
+
+@keyframes neon-lettre {
+  0% {
+    color: rgba(243, 227, 211, 0.14);
+    text-shadow: none;
+    animation-timing-function: steps(1);
+  }
+  10% {
+    color: #fff4f5;
+    text-shadow:
+      0 0 0.04em #fff,
+      0 0 0.16em rgba(255, 70, 90, 0.95),
+      0 0 0.45em rgba(225, 29, 42, 0.7);
+    animation-timing-function: steps(1);
+  }
+  17% {
+    color: rgba(243, 227, 211, 0.3);
+    text-shadow: none;
+    animation-timing-function: steps(1);
+  }
+  27% {
+    color: #fff4f5;
+    text-shadow:
+      0 0 0.04em #fff,
+      0 0 0.16em rgba(255, 70, 90, 0.95),
+      0 0 0.45em rgba(225, 29, 42, 0.7);
+    animation-timing-function: steps(1);
+  }
+  34% {
+    color: rgba(243, 227, 211, 0.55);
+    text-shadow: 0 0 0.2em rgba(225, 29, 42, 0.3);
+    animation-timing-function: steps(1);
+  }
+  44% {
+    color: #fff4f5;
+    text-shadow:
+      0 0 0.04em #fff,
+      0 0 0.16em rgba(255, 70, 90, 0.95),
+      0 0 0.45em rgba(225, 29, 42, 0.7);
+    animation-timing-function: ease-out;
+  }
+  100% {
+    color: var(--creme);
+    text-shadow: 0 0 0.4em rgba(225, 29, 42, 0.32);
+  }
+}
+
+/* Lustres en parallaxe ----------------------------------------------------- */
+
+/* Les lustres restent dans leur section, même décalés par la parallaxe */
+.lieu,
+.carte {
+  overflow: clip;
+}
+
+.decor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.decor--lieu {
+  top: 4%;
+  right: 3%;
+  width: clamp(110px, 15vw, 210px);
+}
+
+.decor--carte {
+  top: 2%;
+  left: 3%;
+  width: clamp(100px, 13vw, 190px);
+}
+
+.decor--carte-loin {
+  top: 20%;
+  right: 7%;
+  width: clamp(60px, 7vw, 110px);
+  opacity: 0.45;
+}
+
+.lustre {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-origin: 50% 0;
+}
+
+.lustre__tige,
+.lustre__anneau,
+.lustre__cordon {
+  fill: none;
+  stroke: rgba(200, 160, 100, 0.42);
+  stroke-width: 1;
+}
+
+.lustre__perle {
+  fill: rgba(243, 227, 211, 0.5);
+}
+
+.lustre__pampille {
+  fill: rgba(255, 190, 200, 0.18);
+  stroke: rgba(243, 227, 211, 0.5);
+  stroke-width: 0.8;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lustre {
+    animation: balancement 7s ease-in-out infinite alternate;
+  }
+
+  .decor--carte .lustre {
+    animation-duration: 8.5s;
+    animation-delay: -3s;
+  }
+}
+
+@keyframes balancement {
+  from {
+    transform: rotate(-1.4deg);
+  }
+  to {
+    transform: rotate(1.4deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .decor {
+    opacity: 0.4;
+  }
+
+  .decor--carte-loin {
+    display: none;
+  }
+
+  .decor--lieu {
+    top: 1%;
+  }
+}
+
+/* Relief des photos (souris ou gyroscope) ---------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-inclinaison] {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.6s var(--ease);
+  }
+
+  [data-inclinaison].is-incline {
+    transition: transform 0.12s linear;
+  }
+
+  .cadre[data-inclinaison]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 232, 222, 0.22), transparent 55%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .cadre[data-inclinaison].is-incline::before {
+    opacity: 1;
+  }
+
+  .gyro-actif [data-inclinaison]:not([data-inclinaison='souris']) {
+    transform: perspective(1000px) rotateX(var(--gyro-rx, 0deg)) rotateY(var(--gyro-ry, 0deg));
+    transition: none;
+  }
+
+  .gyro-actif .cadre[data-inclinaison]::before {
+    opacity: 0.8;
+    background: radial-gradient(circle at var(--gyro-mx, 50%) var(--gyro-my, 50%), rgba(255, 232, 222, 0.18), transparent 55%);
+  }
+}
+
+/* Éclats de boule à facettes dans Les nuits ------------------------------- */
+
+.nuits {
+  overflow: hidden;
+}
+
+.nuits__eclats {
+  position: absolute;
+  top: -10%;
+  left: -15%;
+  width: 130%;
+  height: min(120%, 1300px);
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle, rgba(255, 60, 80, 0.6) 0 2px, transparent 3px),
+    radial-gradient(circle, rgba(255, 150, 165, 0.4) 0 1.4px, transparent 2.4px);
+  background-size:
+    86px 64px,
+    124px 102px;
+  background-position:
+    0 0,
+    41px 29px;
+  -webkit-mask-image: radial-gradient(55% 45% at 72% 38%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(55% 45% at 72% 38%, #000 10%, transparent 75%);
+  transform-origin: 72% 20%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nuits__eclats {
+    animation: eclats 70s linear infinite;
+  }
+}
+
+@keyframes eclats {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Séquence « L'enseigne s'allume » ---------------------------------------- */
+
+/* Sans animation (réduire les animations, sans WebGL) : photo du néon et légendes à la suite */
+.sequence {
+  position: relative;
+  padding-block: clamp(84px, 11vw, 140px);
+  background: #070102;
+}
+
+.sequence__scene {
+  position: relative;
+}
+
+.sequence__visuel {
+  position: relative;
+  width: min(100% - 40px, 720px);
+  margin: 0 auto 48px;
+}
+
+.sequence__poster img {
+  width: 100%;
+  height: auto;
+}
+
+.sequence__canvas,
+.sequence__voile,
+.sequence__indice,
+.sequence__jauge {
+  display: none;
+}
+
+.sequence__textes {
+  display: grid;
+  gap: 28px;
+  max-width: 720px;
+  text-align: center;
+}
+
+.sequence__texte {
+  margin: 0;
+  color: var(--creme);
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.sequence__final {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.sequence__nom {
+  margin: 0;
+  color: var(--tube);
+  font-family: var(--police-titre);
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: var(--lueur);
+}
+
+/* Version animée : scène plein écran épinglée pendant le défilement */
+.sequence--anime {
+  padding: 0;
+}
+
+.sequence--anime .sequence__scene {
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sequence--anime .sequence__visuel {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  margin: 0;
+}
+
+.sequence--anime .sequence__canvas {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sequence--prete .sequence__canvas {
+  opacity: 1;
+}
+
+.sequence--anime .sequence__poster {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.8s ease;
+}
+
+.sequence--anime .sequence__poster img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55);
+}
+
+.sequence--prete .sequence__poster {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0s 0.8s;
+}
+
+.sequence--anime .sequence__voile {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(5, 1, 2, 0.75) 100%),
+    linear-gradient(90deg, rgba(5, 1, 2, 0.78) 0%, rgba(5, 1, 2, 0.35) 30%, transparent 48%);
+}
+
+.sequence--anime .sequence__textes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(48px, 12vh, 120px);
+  display: grid;
+  gap: 0;
+  max-width: 1200px;
+  text-align: left;
+}
+
+.sequence--anime .sequence__textes > * {
+  grid-area: 1 / 1;
+  max-width: 400px;
+  align-self: end;
+}
+
+.sequence--anime .sequence__final {
+  align-items: flex-start;
+}
+
+.sequence--anime .sequence__final > * {
+  visibility: hidden;
+}
+
+.sequence__indice {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  margin: 0;
+  color: rgba(243, 227, 211, 0.75);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  width: max-content;
+  max-width: calc(100% - 32px);
+  transform: translateX(-50%);
+}
+
+.sequence--anime .sequence__indice {
+  display: block;
+}
+
+.sequence__jauge {
+  position: absolute;
+  top: 50%;
+  right: clamp(16px, 3vw, 40px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transform: translateY(-50%);
+}
+
+.sequence--anime .sequence__jauge {
+  display: grid;
+  gap: 6px;
+}
+
+.sequence__jauge li {
+  color: rgba(243, 227, 211, 0.22);
+  font-family: var(--police-titre);
+  font-size: 15px;
+  line-height: 1;
+  text-align: center;
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.sequence__jauge li:nth-child(n + 5) {
+  transform: rotate(180deg);
+}
+
+.sequence__jauge li:nth-child(5) {
+  margin-top: 10px;
+}
+
+.sequence__jauge li.is-allume {
+  color: var(--tube);
+  text-shadow:
+    0 0 4px rgba(255, 90, 110, 0.9),
+    0 0 10px rgba(225, 29, 42, 0.7);
+}
+
+@media (max-width: 760px) {
+  .sequence--anime .sequence__voile {
+    background:
+      radial-gradient(130% 80% at 50% 40%, transparent 50%, rgba(5, 1, 2, 0.7) 100%),
+      linear-gradient(0deg, rgba(5, 1, 2, 0.92) 0%, rgba(5, 1, 2, 0.6) 26%, transparent 46%);
+  }
+
+  .sequence--anime .sequence__textes {
+    bottom: 64px;
+    text-align: center;
+  }
+
+  .sequence--anime .sequence__textes > * {
+    max-width: none;
+  }
+
+  .sequence--anime .sequence__final {
+    align-items: center;
+  }
+
+  .sequence__jauge {
+    top: calc(var(--header-h) + 14px);
+    right: 50%;
+    display: none;
+    grid-auto-flow: column;
+    transform: translateX(50%);
+  }
+
+  .sequence--anime .sequence__jauge {
+    gap: 8px;
+  }
+
+  .sequence__jauge li:nth-child(5) {
+    margin: 0 0 0 10px;
+  }
+}

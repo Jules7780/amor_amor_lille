@@ -1,5 +1,6 @@
 import { RESEAUX } from '../data/infos'
 import { formatDateCourte, prochainesDates } from '../utils/horaires'
+import TitreNeon from './TitreNeon'
 
 const PHOTOS = [
   {
@@ -19,16 +20,20 @@ const PHOTOS = [
   },
 ]
 
+// Profondeur des photos de la mosaïque (la grande reste fixe)
+const VITESSES = ['0', '-0.07', '0.06']
+
 export default function Nuits() {
   const dates = prochainesDates(4)
 
   return (
     <section id="nuits" className="section nuits">
+      <div className="nuits__eclats" aria-hidden="true" />
       <div className="container">
         <div className="nuits__grille">
           <div className="nuits__texte" data-reveal>
             <p className="surtitre">Contre temps nocturnes</p>
-            <h2 className="titre">Bar à l'apéro, club à la nuit tombée</h2>
+            <TitreNeon>Bar à l'apéro, club à la nuit tombée</TitreNeon>
             <p>
               Le soir, les lumières baissent, la boule à facettes s'allume et les DJs se relaient aux platines du jeudi
               au samedi. La programmation du mois est annoncée sur Instagram.
@@ -63,7 +68,13 @@ export default function Nuits() {
 
           <div className="nuits__mosaique" data-reveal>
             {PHOTOS.map((photo, i) => (
-              <figure key={photo.src} className={`cadre nuits__photo nuits__photo--${i + 1}`}>
+              <figure
+                key={photo.src}
+                className={`cadre nuits__photo nuits__photo--${i + 1}`}
+                data-inclinaison=""
+                data-parallaxe={i > 0 ? '' : undefined}
+                data-vitesse={VITESSES[i]}
+              >
                 <picture>
                   <source media="(max-width: 640px)" srcSet={photo.mobile} />
                   <img src={photo.src} alt={photo.alt} width="1200" height="1600" loading="lazy" />
@@ -74,7 +85,7 @@ export default function Nuits() {
         </div>
 
         <div className="terrasse" data-reveal>
-          <figure className="cadre terrasse__photo">
+          <figure data-inclinaison="" className="cadre terrasse__photo">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/facade-jour-720.webp" />
               <img
@@ -88,13 +99,13 @@ export default function Nuits() {
           </figure>
           <div className="terrasse__texte">
             <p className="surtitre">Dehors comme dedans</p>
-            <h2 className="titre titre--moyen">La terrasse de la rue Royale</h2>
+            <TitreNeon className="titre--moyen">La terrasse de la rue Royale</TitreNeon>
             <p>
               Aux beaux jours, les tables sortent sur le trottoir : un cocktail en fin de journée, une pizza à partager,
               avant que la soirée ne se poursuive à l'intérieur.
             </p>
           </div>
-          <figure className="cadre terrasse__photo terrasse__photo--seconde">
+          <figure data-inclinaison="" className="cadre terrasse__photo terrasse__photo--seconde">
             <picture>
               <source media="(max-width: 640px)" srcSet="/images/terrasse-table-720.webp" />
               <img
