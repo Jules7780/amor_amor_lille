@@ -1,0 +1,8 @@
+node_modules
+dist
+*.tsbuildinfo
+.playwright-mcp
+.DS_Store
+Thumbs.db
+# Photos HD d'Instagram (lourdes) : seules les versions WebP de public/images sont versionnées
+sources/instagram/*.jpg
