@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr" data-version="1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Amor Amor | Bar & club rue Royale, Vieux-Lille</title>
+    <meta
+      name="description"
+      content="Amor Amor, bar et club au 27 rue Royale dans le Vieux-Lille : cocktails signatures, pizzas, DJ sets du jeudi au samedi dans un ancien hôtel particulier. Ouvert du mardi au samedi dès 17h."
+    />
+    <meta name="theme-color" content="#140405" />
+    <!-- Démo des maquettes : à retirer pour la mise en ligne définitive -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://[DOMAINE]/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Amor Amor" />
+    <meta property="og:title" content="Amor Amor | Bar & club rue Royale, Lille" />
+    <meta property="og:description" content="Cocktails, pizzas et nuits confidentielles au 27 rue Royale, dans le Vieux-Lille." />
+    <meta property="og:url" content="https://[DOMAINE]/" />
+    <meta property="og:image" content="https://[DOMAINE]/images/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" as="image" href="/images/salle-principale.webp" media="(min-width: 961px)" />
+    <link rel="preload" as="image" href="/images/salle-principale-960.webp" media="(min-width: 641px) and (max-width: 960px)" />
+    <link rel="preload" as="image" href="/images/salle-principale-mobile.webp" media="(max-width: 640px)" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarOrPub",
+        "name": "Amor Amor",
+        "description": "Bar et club dans un ancien hôtel particulier du Vieux-Lille : cocktails signatures, pizzas et DJ sets.",
+        "image": "https://[DOMAINE]/images/og-image.jpg",
+        "url": "https://[DOMAINE]/",
+        "telephone": "+33670338529",
+        "acceptsReservations": "https://bookings.zenchef.com/results?rid=362596&pid=1001",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "27 rue Royale",
+          "postalCode": "59800",
+          "addressLocality": "Lille",
+          "addressCountry": "FR"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 50.6394977, "longitude": 3.058069 },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Wednesday"], "opens": "17:00", "closes": "01:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Thursday", "Friday", "Saturday"], "opens": "17:00", "closes": "02:00" }
+        ],
+        "sameAs": ["https://www.instagram.com/amoramor_lille/", "https://www.facebook.com/p/Amor-Amor-100093327722334/"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/selecteur/cadre.ts"></script>
+  </body>
+</html>

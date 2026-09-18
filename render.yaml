@@ -1,0 +1,22 @@
+# Déploiement Render (Blueprint) : site statique de démonstration des deux versions.
+# Dans Render : New > Blueprint, puis choisir ce dépôt et la branche demo-versions.
+services:
+  - type: web
+    name: amor-amor-demo
+    runtime: static
+    branch: demo-versions
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      # Vite 8 demande Node 20.19 ou plus récent
+      - key: NODE_VERSION
+        value: 22.12.0
+    headers:
+      # Démo : ne pas apparaître dans les moteurs de recherche (en plus de la balise noindex des pages)
+      - path: /*
+        name: X-Robots-Tag
+        value: noindex, nofollow
+      # Fichiers de build versionnés (nom avec empreinte) : cache long
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
